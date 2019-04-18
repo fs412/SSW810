@@ -4,7 +4,8 @@ from prettytable import PrettyTable
 import os
 import sys
 from collections import defaultdict
-import sqlite3
+import sqlite3 as lite
+from prettytable import from_db_cursor
 
 def file_reader(path, num_fields, seperator = ',', header = False):
     try:
@@ -156,6 +157,17 @@ class Repository:
         for major in self.majors.values():
             major_information.add_row([major.department, major.courses_remaining,major.courses_electives])
         print(major_information)
+
+    datatb = lite.connect('data.db')
+    
+    with datatb:
+    
+        cur = datatb.cursor()    
+        cur.execute("SELECT i.cwid, i.name, i.dept, g.course, count(g.course) as Number_of_students_who_took_the_course from HW11_instructors  as i left join HW11_grades as g on i.cwid=g.Instructor_CWID group by i.cwid, i.name, i.dept, g.course")   
+    
+        x = from_db_cursor(cur) 
+    
+    print(x)
 
 
 def main():
