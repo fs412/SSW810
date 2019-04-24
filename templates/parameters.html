@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<head>
+    
+    <style>
+    h2 {
+      font-family: "Helvetica", "Arial", "Verdana", "sans-serif";
+
+    }
+    h3 {
+      font-family: "Helvetica", "Arial", "Verdana", "sans-serif";
+
+    }
+    #students {
+      font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+
+    }
+    
+    #students td, #students th {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+    
+    #students tr:nth-child(even){background-color: #f2f2f2;}
+    
+    #students tr:hover {background-color: #ddd;}
+    
+    #students th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: #DC143C;
+      color: white;
+    }
+    </style></head>
+<h2>{{ title }}</h2>
+
+<h3> {{table_title }}</h3>
+<table border="1">
+    <table id="students">
+    <th>CWID</th>
+    <th>Name</th>
+    <th>Department</th>
+    <th>Courses</th>
+    <th>Students</th>
+    {% for student in students %}
+    <tr>
+        <td>{{ student.cwid }}</td>
+        <td>{{ student.name }}</td>
+        <td>{{ student.department }}</td>
+        <td>{{ student.course }}</td>
+        <td>{{student.total }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
